@@ -1,0 +1,30 @@
+buildscript {
+    
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    project.ext {
+        appcompat = "27.0.2"
+        dagger = "2.10"
+        rxjava = "2.1.2"
+        rxandroid = "2.0.1"
+        moxy = "1.5.3"
+        retrofit = "2.3.0"
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
