@@ -32,9 +32,9 @@ public class MainActivity extends MvpAppCompatActivity implements IConverterView
         return new ConverterPresenter(component.interactor());
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //todo заменить, чтобы при перевороте менялось
         component = BaseApp.appComponent.converterComponentBuilder()
                 .module(new ConverterModule())
                 .build();

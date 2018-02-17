@@ -3,6 +3,7 @@ package com.ebr163.revoluttestapp.ui.presenter;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.ebr163.revoluttestapp.business.IConverterInteractor;
+import com.ebr163.revoluttestapp.models.Currency;
 import com.ebr163.revoluttestapp.ui.view.IConverterView;
 
 /**
@@ -34,5 +35,13 @@ public class ConverterPresenter extends MvpPresenter<IConverterView> {
 
     public void moveItem(int from, int to) {
         getViewState().moveItem(from, to);
+    }
+
+    public void setCurrentCurrency(Currency currentCurrency) {
+        converterInteractor.setCurrentCurrency(currentCurrency);
+    }
+
+    public void setCurrencyCount(double currencyCount) {
+        converterInteractor.setCurrencyCount(currencyCount);
     }
 }

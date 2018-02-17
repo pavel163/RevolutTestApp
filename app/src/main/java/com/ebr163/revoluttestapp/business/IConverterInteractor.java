@@ -16,4 +16,8 @@ public interface IConverterInteractor {
     Single<List<Currency>> firstLoad();
 
     void unbind();
+
+    void setCurrencyCount(double currencyCount);
+
+    void setCurrentCurrency(Currency currentCurrency);
 }

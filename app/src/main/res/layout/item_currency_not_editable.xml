@@ -15,7 +15,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:onClick="@{listener::onClickName}"
+        android:onClick="@{(v)->listener.onClickName(v, currency)}"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/margin_vertical"
         android:paddingEnd="@dimen/margin_horizontal"
@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="@{String.valueOf(currency.rate)}"
+            android:text="@{String.valueOf(currency.amount)}"
             tools:text="1000" />
 
     </LinearLayout>

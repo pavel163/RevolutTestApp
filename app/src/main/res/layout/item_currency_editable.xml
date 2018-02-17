@@ -31,12 +31,14 @@
             tools:text="name" />
 
         <EditText
+            android:onTextChanged="@{(s, start, before, amount)->listener.changeCount(currency, s)}"
             android:id="@+id/rate"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="@{String.valueOf(currency.rate)}"
+            android:inputType="numberDecimal"
+            android:text="@{String.valueOf(currency.amount)}"
             tools:text="1000" />
 
     </LinearLayout>
