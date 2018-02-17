@@ -9,8 +9,6 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.ebr163.revoluttestapp.BR;
 import com.ebr163.revoluttestapp.BaseApp;
 import com.ebr163.revoluttestapp.R;
-import com.ebr163.revoluttestapp.di.converter.ConverterComponent;
-import com.ebr163.revoluttestapp.di.converter.ConverterModule;
 import com.ebr163.revoluttestapp.models.Currency;
 import com.ebr163.revoluttestapp.ui.adapter.ConverterAction;
 import com.ebr163.revoluttestapp.ui.adapter.ConverterAdapter;
@@ -21,7 +19,6 @@ import java.util.List;
 public class MainActivity extends MvpAppCompatActivity implements IConverterView {
 
     private RecyclerView recyclerView;
-    private ConverterComponent component;
     private ConverterAdapter adapter;
 
     @InjectPresenter
@@ -29,15 +26,11 @@ public class MainActivity extends MvpAppCompatActivity implements IConverterView
 
     @ProvidePresenter
     ConverterPresenter providePresenter() {
-        return new ConverterPresenter(component.interactor());
+        return new ConverterPresenter(BaseApp.getConverterComponent().interactor());
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //todo заменить, чтобы при перевороте менялось
-        component = BaseApp.appComponent.converterComponentBuilder()
-                .module(new ConverterModule())
-                .build();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initList();
