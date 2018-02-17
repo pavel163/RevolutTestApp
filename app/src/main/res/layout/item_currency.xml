@@ -6,6 +6,10 @@
         <variable
             name="currency"
             type="com.ebr163.revoluttestapp.models.Currency" />
+
+        <variable
+            name="listener"
+            type="com.ebr163.revoluttestapp.ui.adapter.ConverterAction" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="2"
+            android:onClick="@{listener::onClickName}"
             android:text="@{currency.name}"
             tools:text="name" />
 

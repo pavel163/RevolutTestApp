@@ -31,4 +31,8 @@ public class ConverterPresenter extends MvpPresenter<IConverterView> {
         super.onDestroy();
         converterInteractor.unbind();
     }
+
+    public void moveItem(int from, int to) {
+        getViewState().moveItem(from, to);
+    }
 }

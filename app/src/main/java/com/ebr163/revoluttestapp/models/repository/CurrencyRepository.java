@@ -1,11 +1,7 @@
 package com.ebr163.revoluttestapp.models.repository;
 
-import com.ebr163.revoluttestapp.models.Currency;
 import com.ebr163.revoluttestapp.models.ResponseCurrency;
 import com.ebr163.revoluttestapp.service.HttpService;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import io.reactivex.Single;
 
