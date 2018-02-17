@@ -46,7 +46,7 @@ public class MainActivity extends MvpAppCompatActivity implements IConverterView
     private void initList() {
         recyclerView = findViewById(R.id.listView);
         recyclerView.setHasFixedSize(true);
-        adapter = new ConverterAdapter(BR.currency, R.layout.item_currency);
+        adapter = new ConverterAdapter(BR.currency);
         adapter.addAction(BR.listener, new ConverterAction(recyclerView, presenter));
         recyclerView.setAdapter(adapter);
     }

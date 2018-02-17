@@ -1,5 +1,6 @@
 package com.ebr163.revoluttestapp.ui.adapter;
 
+import com.ebr163.revoluttestapp.R;
 import com.ebr163.revoluttestapp.models.Currency;
 import com.ebr163.universalrecyclerview.UniversalRecyclerViewAdapter;
 
@@ -29,5 +30,14 @@ public class ConverterAdapter extends UniversalRecyclerViewAdapter<Currency, Con
         items.remove(from);
         items.add(to, item);
         notifyItemMoved(from, to);
+    }
+
+    @Override
+    protected int getLayoutIdForPosition(int position) {
+        if (position == 0) {
+            return R.layout.item_currency_editable;
+        } else {
+            return R.layout.item_currency_not_editable;
+        }
     }
 }

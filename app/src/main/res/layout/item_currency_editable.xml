@@ -27,11 +27,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="2"
-            android:onClick="@{listener::onClickName}"
             android:text="@{currency.name}"
             tools:text="name" />
 
-        <TextView
+        <EditText
             android:id="@+id/rate"
             android:layout_width="0dp"
             android:layout_height="match_parent"
