@@ -44,6 +44,9 @@ public class ConverterInteractor implements IConverterInteractor {
     }
 
     private void updateCurrency(ResponseCurrency responseCurrency) {
+        if (!currentCurrency.getName().equals("EUR")){
+            currentCurrency.setRate(responseCurrency.getRates().get(currentCurrency.getName()));
+        }
         for (Map.Entry<String, Double> entry : responseCurrency.getRates().entrySet()) {
             Currency currency = currencies.get(entry.getKey());
             currency.setRate(entry.getValue());
