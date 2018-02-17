@@ -14,4 +14,6 @@ import io.reactivex.Single;
 public interface IConverterInteractor {
 
     Single<List<Currency>> firstLoad();
+
+    void unbind();
 }

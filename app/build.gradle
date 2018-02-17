@@ -47,6 +47,9 @@ dependencies {
     //rx
     implementation "io.reactivex.rxjava2:rxandroid:$project.ext.rxandroid"
     implementation "io.reactivex.rxjava2:rxjava:$project.ext.rxjava"
+    //other
+    implementation 'com.github.pavel163:UniversalRecyclerAdapter:1.0.5'
+
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

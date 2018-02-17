@@ -8,9 +8,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -22,19 +25,26 @@ public class ConverterInteractor implements IConverterInteractor {
 
     private final Repository<ResponseCurrency> repository;
     private Map<String, Currency> currencies = new HashMap<>();
+    private Disposable disposable;
 
     public ConverterInteractor(Repository<ResponseCurrency> repository) {
         this.repository = repository;
     }
 
     private void updateAll() {
-        repository.get()
-                .subscribeOn(Schedulers.io())
-                .doOnSuccess(responseCurrency -> {
-                    for (Map.Entry<String, Double> entry : responseCurrency.getRates().entrySet()) {
-                        currencies.get(entry.getKey()).setRate(entry.getValue());
-                    }
-                });
+        disposable = Observable.interval(1, TimeUnit.SECONDS)
+                .switchMap(aLong -> repository.get()
+                        .subscribeOn(Schedulers.io())
+                        .doOnSuccess(responseCurrency -> updateCurrency(responseCurrency))
+                        .toObservable())
+                .subscribe();
+
+    }
+
+    private void updateCurrency(ResponseCurrency responseCurrency) {
+        for (Map.Entry<String, Double> entry : responseCurrency.getRates().entrySet()) {
+            currencies.get(entry.getKey()).setRate(entry.getValue());
+        }
     }
 
     @Override
@@ -50,6 +60,12 @@ public class ConverterInteractor implements IConverterInteractor {
                     }
                     return Single.just(currencyList);
                 })
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread())
+                .doAfterSuccess(currencies -> updateAll());
+    }
+
+    @Override
+    public void unbind() {
+        disposable.dispose();
     }
 }
