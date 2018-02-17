@@ -30,9 +30,9 @@ public class ConverterAction extends BindingAction<Currency> {
 
     public void changeCount(Currency currency, CharSequence s) {
         if (s.length() == 0){
-            presenter.setCurrencyCount(0);
+            currency.setAmountWithoutUpdate(0);
         } else {
-            presenter.setCurrencyCount(Double.parseDouble(s.toString().replaceAll(",", ".")));
+            currency.setAmountWithoutUpdate(Double.parseDouble(s.toString().replaceAll(",", ".")));
         }
     }
 }

@@ -40,8 +40,4 @@ public class ConverterPresenter extends MvpPresenter<IConverterView> {
     public void setCurrentCurrency(Currency currentCurrency) {
         converterInteractor.setCurrentCurrency(currentCurrency);
     }
-
-    public void setCurrencyCount(double currencyCount) {
-        converterInteractor.setCurrencyCount(currencyCount);
-    }
 }

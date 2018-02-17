@@ -27,7 +27,6 @@ public class ConverterInteractor implements IConverterInteractor {
     private Map<String, Currency> currencies = new HashMap<>();
     private Disposable disposable;
     private Currency currentCurrency;
-    private double currencyCount = 1;
 
     public ConverterInteractor(Repository<ResponseCurrency> repository) {
         this.repository = repository;
@@ -49,11 +48,11 @@ public class ConverterInteractor implements IConverterInteractor {
             Currency currency = currencies.get(entry.getKey());
             currency.setRate(entry.getValue());
             if (!entry.getKey().equals(currentCurrency.getName())) {
-                currency.setAmount(currencyCount / currentCurrency.getRate() * entry.getValue());
+                currency.setAmount(currentCurrency.getAmount() / currentCurrency.getRate() * entry.getValue());
             }
         }
         if (!currentCurrency.getName().equals("EUR")) {
-            currencies.get("EUR").setAmount(currencyCount / currentCurrency.getRate());
+            currencies.get("EUR").setAmount(currentCurrency.getAmount() / currentCurrency.getRate());
         }
     }
 
@@ -88,11 +87,5 @@ public class ConverterInteractor implements IConverterInteractor {
     @Override
     public void setCurrentCurrency(Currency currentCurrency) {
         this.currentCurrency = currentCurrency;
-    }
-
-    @Override
-    public void setCurrencyCount(double currencyCount) {
-        this.currencyCount = currencyCount;
-        this.currentCurrency.setAmountWithoutUpdate(currencyCount);
     }
 }
