@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -63,23 +64,27 @@ public class ConverterInteractor implements IConverterInteractor {
     public Single<List<Currency>> firstLoad() {
         return repository.get()
                 .subscribeOn(Schedulers.io())
-                .flatMap(responseCurrency -> {
-                    List<Currency> currencyList = new ArrayList<>();
-                    for (Map.Entry<String, Double> entry : responseCurrency.getRates().entrySet()) {
-                        Currency currency = new Currency(entry.getKey(), entry.getValue());
-                        currencies.put(entry.getKey(), currency);
-                        currencyList.add(currency);
-                    }
-                    return Single.just(currencyList);
-                })
+                .flatMap(this::createCurrencyList)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(currencies1 -> {
-                    currentCurrency = new Currency("EUR", 1);
-                    currentCurrency.setAmount(1);
-                    currencies1.add(0, currentCurrency);
-                    currencies.put("EUR", currentCurrency);
-                })
+                .doOnSuccess(this::createEuroCurrency)
                 .doAfterSuccess(currencies -> updateAll());
+    }
+
+    private void createEuroCurrency(List<Currency> currencies1) {
+        currentCurrency = new Currency("EUR", 1);
+        currentCurrency.setAmount(1);
+        currencies1.add(0, currentCurrency);
+        currencies.put("EUR", currentCurrency);
+    }
+
+    private SingleSource<List<Currency>> createCurrencyList(ResponseCurrency responseCurrency) {
+        List<Currency> currencyList = new ArrayList<>();
+        for (Map.Entry<String, Double> entry : responseCurrency.getRates().entrySet()) {
+            Currency currency = new Currency(entry.getKey(), entry.getValue());
+            currencies.put(entry.getKey(), currency);
+            currencyList.add(currency);
+        }
+        return Single.just(currencyList);
     }
 
     @Override
