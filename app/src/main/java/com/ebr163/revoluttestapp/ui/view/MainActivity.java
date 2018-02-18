@@ -2,6 +2,7 @@ package com.ebr163.revoluttestapp.ui.view;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -51,7 +52,8 @@ public class MainActivity extends MvpAppCompatActivity implements IConverterView
 
     @Override
     public void showError() {
-
+        recyclerView.setVisibility(View.GONE);
+        findViewById(R.id.errorView).setVisibility(View.VISIBLE);
     }
 
     @Override

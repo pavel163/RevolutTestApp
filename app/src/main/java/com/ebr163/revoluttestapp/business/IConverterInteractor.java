@@ -18,4 +18,6 @@ public interface IConverterInteractor {
     void unbind();
 
     void setCurrentCurrency(Currency currentCurrency);
+
+    void setErrorListener(OnErrorListener errorListener);
 }

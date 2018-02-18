@@ -40,7 +40,8 @@
             android:inputType="numberDecimal"
             android:onTextChanged="@{(s, start, before, amount)->listener.changeCount(currency, s)}"
             app:text="@{currency.amount}"
-            tools:text="1000" />
+            tools:text="1000"
+            tools:ignore="LabelFor" />
 
     </LinearLayout>
 

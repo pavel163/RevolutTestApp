@@ -28,6 +28,7 @@ public class ConverterInteractor implements IConverterInteractor {
     private Map<String, Currency> currencies = new HashMap<>();
     private Disposable disposable;
     private Currency currentCurrency;
+    private OnErrorListener errorListener;
 
     public ConverterInteractor(Repository<ResponseCurrency> repository) {
         this.repository = repository;
@@ -40,12 +41,17 @@ public class ConverterInteractor implements IConverterInteractor {
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSuccess(this::updateCurrency)
                         .toObservable())
-                .subscribe();
+                .subscribe(responseCurrency -> {},
+                        throwable -> {
+                            if (errorListener != null) {
+                                errorListener.showError();
+                            }
+                        });
 
     }
 
     private void updateCurrency(ResponseCurrency responseCurrency) {
-        if (!currentCurrency.getName().equals("EUR")){
+        if (!currentCurrency.getName().equals("EUR")) {
             currentCurrency.setRate(responseCurrency.getRates().get(currentCurrency.getName()));
         }
         for (Map.Entry<String, Double> entry : responseCurrency.getRates().entrySet()) {
@@ -95,5 +101,10 @@ public class ConverterInteractor implements IConverterInteractor {
     @Override
     public void setCurrentCurrency(Currency currentCurrency) {
         this.currentCurrency = currentCurrency;
+    }
+
+    @Override
+    public void setErrorListener(OnErrorListener errorListener) {
+        this.errorListener = errorListener;
     }
 }

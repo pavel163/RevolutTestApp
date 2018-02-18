@@ -14,16 +14,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Singleton
 public class HttpService {
 
-    private final String baseUrl = "https://revolut.duckdns.org/";
-
     private HttpApi httpApi;
 
     @Inject
-    public HttpService(){
+    HttpService(){
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(baseUrl)
+                .baseUrl("https://revolut.duckdns.org/")
                 .build();
 
         httpApi = retrofit.create(HttpApi.class);

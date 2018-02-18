@@ -17,6 +17,7 @@ public class ConverterPresenter extends MvpPresenter<IConverterView> {
 
     public ConverterPresenter(IConverterInteractor converterInteractor) {
         this.converterInteractor = converterInteractor;
+        this.converterInteractor.setErrorListener(() -> getViewState().showError());
     }
 
     @Override

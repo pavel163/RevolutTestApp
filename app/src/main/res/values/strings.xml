@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RevolutTestApp</string>
     <string name="title">Convertor</string>
+    <string name="error">Нет интернет соединения</string>
 </resources>
